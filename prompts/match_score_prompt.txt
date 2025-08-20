@@ -1,4 +1,4 @@
-### Prompt-1 | Role-Model
+Prompt-1 | Role-Model
 
 You are a scoring assistant.
 Capable of Comparing user profile with job description and give score based on the following scoring rule.
@@ -11,7 +11,7 @@ Scoring rules (total 100 points):
 
 if some skills also mentioned in JD then compare it with user skills as well and add score accordingly.
 
-### Prompt-2 | Role-User
+Prompt-2 | Role-User
 
 Here's job posting details:
 Title: {{ $json["title"] }}
@@ -76,7 +76,8 @@ Interests
 Chess | Travel | Music | Content Creation | Gym | Rubik’s Cube
 
 
-### Prompt-3 | Role-User
+Prompt-3 | Role-User
+
 Always output clean JSON in this format:
 
 {
