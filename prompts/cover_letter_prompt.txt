@@ -1,0 +1,76 @@
+### Prompt-1 | Role-Model
+
+you're in System message mode, you're an intelligent bot perfect at creating cover letters for a job.
+Please take the candidates resume and create a customized cover letter to the job.
+
+### Prompt-2 | Role-User
+
+Here's job posting details:
+Title: {{ $('Code1').item.json.title }}
+Company: {{ $('Code1').item.json.company }}
+Location: {{ $('Code1').item.json.location }}
+Description: {{ $('Code').item.json.job_description }}
+
+Here's user profile detail:
+Jatin Kumar Rana – Data Analyst
+📧 Email: jatinrana021@gmail.com | 📱 Phone: +91 9304646044
+🔗 LinkedIn: http://www.linkedin.com/in/jatin-kumar-rana-a508a7262
+🔗 GitHub: https://github.com/JatinKrRana
+Objective
+Certified Data Science professional from AlmaBetter with strong skills in Python, SQL, Excel, Tableau, Power BI, and Machine Learning. Adept at data analysis, visualization, and building predictive models. Seeking a full-time position in Data Analytics where my expertise in data exploration, visualization, and predictive analytics can add value to the organization.
+Education
+Bachelor of Science in Physics
+Vinoba Bhave University, Hazaribagh, Jharkhand (2016–2020)
+Full Stack Data Science Program
+AlmaBetter (Mar 2023 – Jan 2024)
+Technical Skills
+Languages & Tools (Rating / 5): Python (4.5), SQL (4.5), Excel (4.5), Power BI (4.3), Tableau (4.0), Machine Learning (4.4), LLM(4.0), GenAI(4.0)
+Platforms: Jupyter Notebook, Google Colab, PostgreSQL, GitHub
+ML Frameworks: Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn
+Other Skills: Problem-solving, Analytical skills, Quick Learner, Attention to Detail, Collaboration, Positive Attitude
+Training Experience
+AlmaBetter – Data Analyst Intern (03/2024 – 11/2024)
+- Worked on hands-on projects, including a case study & guesstimates on Paytm, Excel insights dashboard for supply chain data, and Power BI dashboard for banking data.
+- Conducted exploratory data analysis (EDA), statistical analysis, and business intelligence.
+- Built machine learning models and applied data visualization techniques using Power BI and Excel.
+- Collaborated in a team-driven environment, working with real-world datasets.
+Projects
+1. Walmart Excel Dashboard: Supply Chain & Digital Insights (08/2024)
+- Built a dynamic Excel dashboard analyzing supply chain & access log data.
+- Extracted insights into sales, logistics, delivery performance, and consumer interactions.
+- Conducted preprocessing, feature engineering & created KPIs (Profit Margin, Sales Trend, Product Popularity).
+- Enabled slicer-based analysis of delivery status, top products, monthly visitors, and sales trends.
+🔗 Project Link: https://github.com/JatinKrRana/Excel_Case_Study_Project_On_SupplyChainData?tab=readme-ov-file
+2. Power BI Insights Dashboard: Banking Data Analysis (08/2024)
+- Analyzed banking dataset: customer transactions, account types, credit scores, and loan performance.
+- Designed interactive Power BI dashboard with slicers, filters & charts.
+- Identified trends in credit risk & repayment behavior.
+🔗 Project Link: https://github.com/JatinKrRana/FinInsight_PowerBI_Dashboard
+3. Zomato Restaurant Clustering & Sentiment Analysis (02/2024)
+- Applied K-means clustering to group restaurants with similar traits.
+- Used NLP for sentiment classification of user reviews.
+- Visualized results with maps, charts, and word clouds.
+🔗 Project Link: https://github.com/JatinKrRana/Zomato_Restaurant_Clustering_And_Sentiment_Analysis-AB_Capstone_Project
+Certificates
+Advanced Python
+SQL for Data Science
+Excel Fundamentals
+Tableau
+Power BI
+Advanced Machine Learning
+Full Stack Data Science Program (Completion – AlmaBetter)
+Awards
+Gold Badge in SQL – HackerRank (2024)
+Gold Badge in Python – HackerRank (2023)
+Publications
+Mastering Case Studies: The Blueprint for Success in Data Science and Beyond – LinkedIn
+The Power of Listening: Transforming Communication Through Genuine Understanding – LinkedIn
+Interests
+Chess | Travel | Music | Content Creation | Gym | Rubik’s Cube
+
+### Prompt-1 | Role-User
+
+you're in assistant message mode, keep the cover letter <=300 words.  please return Json data structure the following way:
+{
+"cover_letter":""
+}

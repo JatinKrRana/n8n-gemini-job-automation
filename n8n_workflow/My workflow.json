@@ -1,0 +1,501 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6f59d718-97e3-49bd-bf30-4b53899fedc7",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://jsearch.p.rapidapi.com/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "Data Analyst"
+            },
+            {
+              "name": "num_pages",
+              "value": "1"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "a62ecfc0a4mshd32c66252abb2fep1978bdjsnb4def18b8b27"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "jsearch.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "93e90a80-8c85-4570-af91-714b6f0ebce8",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Take the data array and return each job as an item\nreturn items[0].json.data.map(job => {\n  return { json: job };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "c123c0eb-17b5-4ddd-8cb6-d4b86fe7aab6",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "16h8mKZN-45ox1b5Mhuu13VmDuEcGG7xTzqAq_Uk-_FE",
+          "mode": "list",
+          "cachedResultName": "Job_Listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/16h8mKZN-45ox1b5Mhuu13VmDuEcGG7xTzqAq_Uk-_FE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/16h8mKZN-45ox1b5Mhuu13VmDuEcGG7xTzqAq_Uk-_FE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ $('Code1').item.json.title }}",
+            "Link": "={{ $('Code1').item.json.url }}",
+            "Company": "={{ $('Code1').item.json.company }}",
+            "JD": "={{ $('Code1').item.json.job_description }}",
+            "Date": "={{ $('Code1').item.json.date }}",
+            "Match Score": "={{ $('Code2').item.json.match_score }}",
+            "Cover Letter": "={{ $json.cover_letter }}"
+          },
+          "matchingColumns": [
+            "Link"
+          ],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "JD",
+              "displayName": "JD",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link",
+              "displayName": "Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Match Score",
+              "displayName": "Match Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover Letter",
+              "displayName": "Cover Letter",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2304,
+        0
+      ],
+      "id": "ebd5950d-81b4-4179-a9a3-a6b4276eed92",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ES6zFN3k47a92dlx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant. \nYour task is to extract structured job posting data from raw job listings. ",
+              "role": "model"
+            },
+            {
+              "content": "=Here’s the job data:\n{{ JSON.stringify($('HTTP Request').item.json.data) }}\n"
+            },
+            {
+              "content": "Always output clean JSON in this format:\n\n{\n  \"title\": \"\",\n  \"company\": \"\",\n  \"location\": \"\",\n  \"job_description\": \"\",\n  \"url\": \"\",\n  \"date\": \"\"\n}\n\nRules:\n- job_description should be short (<=200 words) and must combine job description + role responsibilities + required qualifications.\n- If a field is missing, use an empty string \"\".\n- Output only JSON, no explanation.",
+              "role": "model"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "2c31dacb-3f78-4661-9454-7377ccdb41c2",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "NPLxg97dXHHKqnN8",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the Gemini output text (JSON string)\nconst rawText = items[0].json.content.parts[0].text;\n\n// Parse the JSON string into an array of jobs\nlet jobs;\ntry {\n  jobs = JSON.parse(rawText);\n} catch (error) {\n  throw new Error(\"Failed to parse Gemini JSON: \" + error.message);\n}\n\n// Convert each job into its own item for n8n\nreturn jobs.map(job => {\n  return { json: job };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        0
+      ],
+      "id": "ff608b3e-664f-47ea-adcf-772fbab6e849",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a scoring assistant.\nCapable of Comparing user profile with job description and give score based on the following scoring rule.\n\nScoring rules (total 100 points):\n- If job title contains \"Data Analyst\" or similar → 10 points\n- For each skill match → +5 points (max 60 points)\n- If location matches (India/Remote) → +20 points\n- If experience matches (0–2 years) → +10 points\n\nif some skills also mentioned in JD then compare it with user skills as well and add score accordingly.",
+              "role": "model"
+            },
+            {
+              "content": "=Here's job posting details:\nTitle: {{ $json[\"title\"] }}\nCompany: {{ $json.company }}\nLocation: {{ $json[\"location\"] }}\nDescription: {{ $('Code').item.json.job_description }}\n\nHere's user profile detail:\nJatin Kumar Rana – Data Analyst\n📧 Email: jatinrana021@gmail.com | 📱 Phone: +91 9304646044\n🔗 LinkedIn: http://www.linkedin.com/in/jatin-kumar-rana-a508a7262\n🔗 GitHub: https://github.com/JatinKrRana\nObjective\nCertified Data Science professional from AlmaBetter with strong skills in Python, SQL, Excel, Tableau, Power BI, and Machine Learning. Adept at data analysis, visualization, and building predictive models. Seeking a full-time position in Data Analytics where my expertise in data exploration, visualization, and predictive analytics can add value to the organization.\nEducation\nBachelor of Science in Physics\nVinoba Bhave University, Hazaribagh, Jharkhand (2016–2020)\nFull Stack Data Science Program\nAlmaBetter (Mar 2023 – Jan 2024)\nTechnical Skills\nLanguages & Tools (Rating / 5): Python (4.5), SQL (4.5), Excel (4.5), Power BI (4.3), Tableau (4.0), Machine Learning (4.4), LLM(4.0), GenAI(4.0)\nPlatforms: Jupyter Notebook, Google Colab, PostgreSQL, GitHub\nML Frameworks: Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn\nOther Skills: Problem-solving, Analytical skills, Quick Learner, Attention to Detail, Collaboration, Positive Attitude\nTraining Experience\nAlmaBetter – Data Analyst Intern (03/2024 – 11/2024)\n- Worked on hands-on projects, including a case study & guesstimates on Paytm, Excel insights dashboard for supply chain data, and Power BI dashboard for banking data.\n- Conducted exploratory data analysis (EDA), statistical analysis, and business intelligence.\n- Built machine learning models and applied data visualization techniques using Power BI and Excel.\n- Collaborated in a team-driven environment, working with real-world datasets.\nProjects\n1. Walmart Excel Dashboard: Supply Chain & Digital Insights (08/2024)\n- Built a dynamic Excel dashboard analyzing supply chain & access log data.\n- Extracted insights into sales, logistics, delivery performance, and consumer interactions.\n- Conducted preprocessing, feature engineering & created KPIs (Profit Margin, Sales Trend, Product Popularity).\n- Enabled slicer-based analysis of delivery status, top products, monthly visitors, and sales trends.\n🔗 Project Link: https://github.com/JatinKrRana/Excel_Case_Study_Project_On_SupplyChainData?tab=readme-ov-file\n2. Power BI Insights Dashboard: Banking Data Analysis (08/2024)\n- Analyzed banking dataset: customer transactions, account types, credit scores, and loan performance.\n- Designed interactive Power BI dashboard with slicers, filters & charts.\n- Identified trends in credit risk & repayment behavior.\n🔗 Project Link: https://github.com/JatinKrRana/FinInsight_PowerBI_Dashboard\n3. Zomato Restaurant Clustering & Sentiment Analysis (02/2024)\n- Applied K-means clustering to group restaurants with similar traits.\n- Used NLP for sentiment classification of user reviews.\n- Visualized results with maps, charts, and word clouds.\n🔗 Project Link: https://github.com/JatinKrRana/Zomato_Restaurant_Clustering_And_Sentiment_Analysis-AB_Capstone_Project\nCertificates\nAdvanced Python\nSQL for Data Science\nExcel Fundamentals\nTableau\nPower BI\nAdvanced Machine Learning\nFull Stack Data Science Program (Completion – AlmaBetter)\nAwards\nGold Badge in SQL – HackerRank (2024)\nGold Badge in Python – HackerRank (2023)\nPublications\nMastering Case Studies: The Blueprint for Success in Data Science and Beyond – LinkedIn\nThe Power of Listening: Transforming Communication Through Genuine Understanding – LinkedIn\nInterests\nChess | Travel | Music | Content Creation | Gym | Rubik’s Cube\n"
+            },
+            {
+              "content": "Always output clean JSON in this format:\n\n{\n  \"match_score\":\"\"\n}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        0
+      ],
+      "id": "1b43d6dc-9dff-47bf-a00c-dc45e0b22427",
+      "name": "Message a model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "NPLxg97dXHHKqnN8",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect all jobs\nlet jobs = [];\n\nfor (const item of items) {\n  let rawText = item.json.content.parts[0].text || \"\";\n\n  // Remove markdown fences if present\n  rawText = rawText.replace(/```json/gi, \"\")\n                   .replace(/```/g, \"\")\n                   .trim();\n\n  let job;\n  try {\n    job = JSON.parse(rawText);\n  } catch (error) {\n    throw new Error(\"Failed to parse Gemini JSON: \" + error.message + \"\\nRaw: \" + rawText);\n  }\n\n  jobs.push(job);\n}\n\n// Convert each job into its own item for n8n\nreturn jobs.map(job => ({ json: job }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1536,
+        0
+      ],
+      "id": "73c2900b-1710-4513-a3fc-9e45c46afbc4",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "you're in System message mode, you're an intelligent bot perfect at creating cover letters for a job. Please take the candidates resume and create a customized cover letter to the job.",
+              "role": "model"
+            },
+            {
+              "content": "=Here's job posting details:\nTitle: {{ $('Code1').item.json.title }}\nCompany: {{ $('Code1').item.json.company }}\nLocation: {{ $('Code1').item.json.location }}\nDescription: {{ $('Code').item.json.job_description }}\n\nHere's user profile detail:\nJatin Kumar Rana – Data Analyst\n📧 Email: jatinrana021@gmail.com | 📱 Phone: +91 9304646044\n🔗 LinkedIn: http://www.linkedin.com/in/jatin-kumar-rana-a508a7262\n🔗 GitHub: https://github.com/JatinKrRana\nObjective\nCertified Data Science professional from AlmaBetter with strong skills in Python, SQL, Excel, Tableau, Power BI, and Machine Learning. Adept at data analysis, visualization, and building predictive models. Seeking a full-time position in Data Analytics where my expertise in data exploration, visualization, and predictive analytics can add value to the organization.\nEducation\nBachelor of Science in Physics\nVinoba Bhave University, Hazaribagh, Jharkhand (2016–2020)\nFull Stack Data Science Program\nAlmaBetter (Mar 2023 – Jan 2024)\nTechnical Skills\nLanguages & Tools (Rating / 5): Python (4.5), SQL (4.5), Excel (4.5), Power BI (4.3), Tableau (4.0), Machine Learning (4.4), LLM(4.0), GenAI(4.0)\nPlatforms: Jupyter Notebook, Google Colab, PostgreSQL, GitHub\nML Frameworks: Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn\nOther Skills: Problem-solving, Analytical skills, Quick Learner, Attention to Detail, Collaboration, Positive Attitude\nTraining Experience\nAlmaBetter – Data Analyst Intern (03/2024 – 11/2024)\n- Worked on hands-on projects, including a case study & guesstimates on Paytm, Excel insights dashboard for supply chain data, and Power BI dashboard for banking data.\n- Conducted exploratory data analysis (EDA), statistical analysis, and business intelligence.\n- Built machine learning models and applied data visualization techniques using Power BI and Excel.\n- Collaborated in a team-driven environment, working with real-world datasets.\nProjects\n1. Walmart Excel Dashboard: Supply Chain & Digital Insights (08/2024)\n- Built a dynamic Excel dashboard analyzing supply chain & access log data.\n- Extracted insights into sales, logistics, delivery performance, and consumer interactions.\n- Conducted preprocessing, feature engineering & created KPIs (Profit Margin, Sales Trend, Product Popularity).\n- Enabled slicer-based analysis of delivery status, top products, monthly visitors, and sales trends.\n🔗 Project Link: https://github.com/JatinKrRana/Excel_Case_Study_Project_On_SupplyChainData?tab=readme-ov-file\n2. Power BI Insights Dashboard: Banking Data Analysis (08/2024)\n- Analyzed banking dataset: customer transactions, account types, credit scores, and loan performance.\n- Designed interactive Power BI dashboard with slicers, filters & charts.\n- Identified trends in credit risk & repayment behavior.\n🔗 Project Link: https://github.com/JatinKrRana/FinInsight_PowerBI_Dashboard\n3. Zomato Restaurant Clustering & Sentiment Analysis (02/2024)\n- Applied K-means clustering to group restaurants with similar traits.\n- Used NLP for sentiment classification of user reviews.\n- Visualized results with maps, charts, and word clouds.\n🔗 Project Link: https://github.com/JatinKrRana/Zomato_Restaurant_Clustering_And_Sentiment_Analysis-AB_Capstone_Project\nCertificates\nAdvanced Python\nSQL for Data Science\nExcel Fundamentals\nTableau\nPower BI\nAdvanced Machine Learning\nFull Stack Data Science Program (Completion – AlmaBetter)\nAwards\nGold Badge in SQL – HackerRank (2024)\nGold Badge in Python – HackerRank (2023)\nPublications\nMastering Case Studies: The Blueprint for Success in Data Science and Beyond – LinkedIn\nThe Power of Listening: Transforming Communication Through Genuine Understanding – LinkedIn\nInterests\nChess | Travel | Music | Content Creation | Gym | Rubik’s Cube"
+            },
+            {
+              "content": "you're in assistant message mode, keep the cover letter <=300 words.  please return Json data structure the following way:\n{\n\"cover_letter\":\"\"\n}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1744,
+        0
+      ],
+      "id": "d95b1ad8-f244-4f6a-a335-f7049314fb9e",
+      "name": "Message a model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "NPLxg97dXHHKqnN8",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect all jobs\nlet jobs = [];\n\nfor (const item of items) {\n  let rawText = item.json.content.parts[0].text || \"\";\n\n  // Remove markdown fences if present\n  rawText = rawText.replace(/```json/gi, \"\")\n                   .replace(/```/g, \"\")\n                   .trim();\n\n  let job;\n  try {\n    job = JSON.parse(rawText);\n  } catch (error) {\n    throw new Error(\"Failed to parse Gemini JSON: \" + error.message + \"\\nRaw: \" + rawText);\n  }\n\n  jobs.push(job);\n}\n\n// Convert each job into its own item for n8n\nreturn jobs.map(job => ({ json: job }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2096,
+        0
+      ],
+      "id": "5baf89b0-49d6-4f4e-904e-9ade8795189f",
+      "name": "Code3"
+    },
+    {
+      "parameters": {
+        "sendTo": "jatinrana021@gmail.com",
+        "subject": "Daily Job Recommendations",
+        "message": "=<p><b>Title:</b> {{ $json.Title }}</p>\n<p><b>Company:</b> {{ $json.Company }}</p>\n<p><b>Location:</b> {{ $('Code1').item.json.location }}</p>\n<p><b>JD:</b> {{ $json.JD }}</p>\n<p><b>Match Score:</b> {{ $json['Match Score'] }}</p>\n<p><b>Job Link:</b> <a href=\"{{ $json.Link }}\">{{ $json.Link }}</a></p>\n<hr>\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2512,
+        0
+      ],
+      "id": "629e86e2-d34a-4544-9edd-62845bc66d04",
+      "name": "Send a message",
+      "webhookId": "8e68a6c2-ccc3-4d90-ba03-3209dfa256da",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "N4ghMabFUJq6ePOG",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model1": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Message a model2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model2": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ab86e77f-b921-4723-9f8d-ca4d5175afd9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "211db4e64bd4ff7b8ceb7e2459587892fef16df3bc5f89c760b37fe48dad4c6c"
+  },
+  "id": "ymWLGhQQarB8Y10B",
+  "tags": []
+}
