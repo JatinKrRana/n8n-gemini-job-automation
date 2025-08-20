@@ -1,15 +1,14 @@
-### Prompt-1 | Role-Model
+Prompt-1 | Role-Model
 
 You are an intelligent assistant. 
 Your task is to extract structured job posting data from raw job listings. 
 
-### Prompt-2 | Role-User
+Prompt-2 | Role-User
 
 Here’s the job data:
 {{ JSON.stringify($('HTTP Request').item.json.data) }}
 
-
-### Prompt-3 | Role-Model
+Prompt-3 | Role-Model
 
 Always output clean JSON in this format:
 {
