@@ -1,9 +1,9 @@
-### Prompt-1 | Role-Model
+Prompt-1 | Role-Model
 
 you're in System message mode, you're an intelligent bot perfect at creating cover letters for a job.
 Please take the candidates resume and create a customized cover letter to the job.
 
-### Prompt-2 | Role-User
+Prompt-2 | Role-User
 
 Here's job posting details:
 Title: {{ $('Code1').item.json.title }}
@@ -68,7 +68,7 @@ The Power of Listening: Transforming Communication Through Genuine Understanding
 Interests
 Chess | Travel | Music | Content Creation | Gym | Rubik’s Cube
 
-### Prompt-1 | Role-User
+Prompt-3 | Role-User
 
 you're in assistant message mode, keep the cover letter <=300 words.  please return Json data structure the following way:
 {
