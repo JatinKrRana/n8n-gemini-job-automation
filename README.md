@@ -64,14 +64,16 @@ This automation streamlines the workflow by:
 
 ## 📸 Screenshots  
 
+🔹 **n8n Workflow** – Visual automation flow connecting all steps
+<img width="2056" height="394" alt="Screenshot 2025-08-20 210436" src="https://github.com/user-attachments/assets/ab735033-8cca-43ce-87b2-d8dc9ad891a1" />
+
 🔹 **Google Sheet Output** – Job data with match scores
 <img width="2122" height="1012" alt="Screenshot 2025-08-20 210619" src="https://github.com/user-attachments/assets/b761fd68-8547-4f9a-b25a-4c03f4f6012d" />
 
 🔹 **Email Notification** – Automated job recommendations in your inbox
 <img width="2000" height="884" alt="Screenshot 2025-08-20 210728" src="https://github.com/user-attachments/assets/c2090b69-0334-4fe6-90fc-c91b23c9fb2a" />
 
-🔹 **n8n Workflow** – Visual automation flow connecting all steps
-<img width="2056" height="394" alt="Screenshot 2025-08-20 210436" src="https://github.com/user-attachments/assets/ab735033-8cca-43ce-87b2-d8dc9ad891a1" />
+
 
 
 
